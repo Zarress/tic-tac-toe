@@ -6,8 +6,7 @@ const initialGameBoard = [
   [null, null, null],
 ];
 
-export default function GameBoard() {
-  const [currentPlayerSymbol, setCurrentPlayerSymbol] = useState("O");
+export default function GameBoard({switchTurn, activePlayerSymbol}) {
   const [gameBoard, setGameBoard] = useState(initialGameBoard);
 
   const clickHandler = (rowIndex, colIndex) => {
@@ -15,11 +14,10 @@ export default function GameBoard() {
       const updatedGameboard = [
         ...prevGameBoard.map((innerArray) => [...innerArray]),
       ];
-      updatedGameboard[rowIndex][colIndex] = currentPlayerSymbol;
+      updatedGameboard[rowIndex][colIndex] = activePlayerSymbol;
       return updatedGameboard;
     });
-    setCurrentPlayerSymbol((prevSymbol) => (prevSymbol === "O" ? "X" : "O"));
-    console.log(gameBoard);
+    switchTurn();
   };
   return (
     <ol id="game-board">
